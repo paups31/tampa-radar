@@ -1,0 +1,53 @@
+/* Add-on: iPhone / phone layer. Only overrides on small screens; desktop is untouched. */
+html, body { overscroll-behavior: none; -webkit-tap-highlight-color: transparent; }
+#app { height: 100dvh; }
+
+@media (max-width: 760px) {
+  /* Panel becomes a full-width sheet that respects the notch / Dynamic Island and home indicator. */
+  #panel {
+    width: 100vw;
+    padding: calc(12px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(90px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  #app.collapsed #panel { margin-left: -100vw; }
+
+  /* iOS zooms into any input under 16px — keep everything at 16px. */
+  input, select, textarea, .search input { font-size: 16px !important; }
+
+  /* Bigger touch targets (Apple guideline: 44 pt). */
+  .icon-btn { min-width: 44px; height: 44px; font-size: 18px; }
+  .search input { height: 44px; }
+  .radar-btn { padding: 10px; }
+  .seg button { padding: 9px 13px; font-size: 14px; }
+  .checks { gap: 2px; }
+  .checks label { min-height: 40px; font-size: 15px; }
+  .checks input[type=checkbox] { width: 20px; height: 20px; }
+  .sa-btn { padding: 10px 12px; font-size: 14px; }
+  .sa-grid { font-size: 14px; }
+  .sa-grid select, .sa-grid input { height: 40px; }
+  .list li { padding: 10px; }
+  .list li b { font-size: 14px; }
+  input[type=range] { height: 32px; }
+
+  /* Floating controls clear the notch and home indicator. */
+  .icon-btn.floating { top: calc(10px + env(safe-area-inset-top)); left: calc(10px + env(safe-area-inset-left)); }
+  .leaflet-top { top: env(safe-area-inset-top); }
+  .leaflet-right { right: env(safe-area-inset-right); }
+  .leaflet-bottom { bottom: calc(64px + env(safe-area-inset-bottom)); }
+  #timebar { bottom: calc(10px + env(safe-area-inset-bottom)); width: calc(100% - 20px - env(safe-area-inset-left) - env(safe-area-inset-right)); }
+  #timebar .icon-btn { min-width: 40px; height: 40px; }
+
+  /* Quick buttons on the map for the things you reach for most. */
+  .ip-quick { position: absolute; z-index: 1000; left: calc(10px + env(safe-area-inset-left)); top: calc(64px + env(safe-area-inset-top));
+    display: flex; flex-direction: column; gap: 8px; }
+  .ip-quick button { width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--line); background: rgba(13,17,23,.88);
+    color: var(--text); font-size: 12px; font-weight: 700; backdrop-filter: blur(6px); }
+  .ip-quick button.on { border-color: var(--accent); background: #12304f; }
+}
+@media (min-width: 761px) { .ip-quick { display: none; } }
+
+/* Running as a home-screen app: hide the "Add to Home Screen" hint. */
+@media (display-mode: standalone) { .ip-install { display: none !important; } }
+.ip-install { background: #12304f; border: 1px solid var(--accent); border-radius: 8px; padding: 8px 10px; font-size: 13px; margin-bottom: 10px; }
+.ip-install button { float: right; background: none; border: 0; color: var(--muted); font-size: 16px; cursor: pointer; }

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tampa Bay Radar</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="addons/storm-alerts.css">
+<link rel="stylesheet" href="addons/rapid-mosaic.css">
+<link rel="stylesheet" href="addons/iphone.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d1117">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Radar">
+<link rel="apple-touch-icon" href="addons/icons/icon-180.png">
+<link rel="icon" type="image/png" href="addons/icons/icon-192.png">
+<link rel="manifest" href="addons/manifest.webmanifest">
+</head>
+<body>
+<div id="app">
+  <aside id="panel">
+    <header class="brand">
+      <div>
+        <h1>Tampa Bay Radar</h1>
+        <div id="clock" class="muted">--</div>
+      </div>
+      <button id="panelToggle" class="icon-btn" title="Hide panel">&#x2039;</button>
+    </header>
+
+    <form id="search" class="search" autocomplete="off">
+      <input id="searchInput" type="search" placeholder="Search a city or address">
+      <button type="submit" class="icon-btn" title="Search">&#x2315;</button>
+      <button type="button" id="locateBtn" class="icon-btn" title="My location">&#x25CE;</button>
+      <ul id="searchResults" class="search-results" hidden></ul>
+    </form>
+
+    <section>
+      <h2>Radar site</h2>
+      <div id="radarList" class="radar-list"></div>
+    </section>
+
+    <section>
+      <h2>Radar product</h2>
+      <div id="productList" class="seg"></div>
+      <label class="slider">Opacity <input id="opacity" type="range" min="20" max="100" value="80"></label>
+    </section>
+
+    <section>
+      <h2>Precipitation type</h2>
+      <div class="checks">
+        <label><input type="checkbox" data-overlay="rain"> <span class="sw" style="background:#00c86e"></span>Rain</label>
+        <label><input type="checkbox" data-overlay="snow"> <span class="sw" style="background:#38b6ff"></span>Snow</label>
+        <label><input type="checkbox" data-overlay="hail"> <span class="sw" style="background:#ff2d55"></span>Hail</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Severe</h2>
+      <div class="checks">
+        <label><input type="checkbox" data-overlay="nrot"> <span class="sw" style="background:linear-gradient(90deg,#ffeb3b,#f44336,#fff)"></span>Normalized rotation</label>
+        <label><input type="checkbox" data-overlay="alerts" checked> <span class="sw" style="background:#ff0000"></span>Warnings &amp; watches</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Environment</h2>
+      <div class="checks">
+        <label><input type="checkbox" data-overlay="dewpoint"> <span class="sw" style="background:linear-gradient(90deg,#a0522d,#2e9e3e,#1565c0)"></span>Dew point</label>
+        <label><input type="checkbox" data-overlay="cape"> <span class="sw" style="background:linear-gradient(90deg,#7bd389,#ffd23f,#e4572e,#c51b8a)"></span>CAPE</label>
+        <label><input type="checkbox" data-overlay="rain24"> <span class="sw" style="background:linear-gradient(90deg,#9be7a8,#1f9e89,#3b2f9e)"></span>24-hr rainfall</label>
+        <label><input type="checkbox" data-overlay="tchg24"> <span class="sw" style="background:linear-gradient(90deg,#2b6cb0,#eee,#c53030)"></span>24-hr temp change</label>
+      </div>
+    </section>
+
+    <section id="legendSection">
+      <h2>Legend</h2>
+      <div id="legend"></div>
+    </section>
+
+    <section>
+      <h2>24-hour climate <span id="climateWhere" class="muted"></span></h2>
+      <div id="climate" class="muted">Loading…</div>
+    </section>
+
+    <section>
+      <h2>Rotation detections <span id="rotCount" class="pill">off</span></h2>
+      <ul id="rotList" class="list muted"><li>Turn on Normalized rotation to scan the selected radar.</li></ul>
+    </section>
+
+    <section>
+      <h2>Active alerts <span id="alertCount" class="pill">0</span></h2>
+      <ul id="alertList" class="list"></ul>
+    </section>
+
+    <footer class="muted small">
+      Radar: NOAA/NWS NEXRAD &amp; TDWR via opengeo.ncep.noaa.gov · Alerts: api.weather.gov ·
+      Model fields: Open-Meteo · Imagery: Esri. Normalized rotation is estimated in your browser
+      from velocity imagery and is not an official NWS product.
+    </footer>
+  </aside>
+
+  <main id="mapWrap">
+    <div id="map"></div>
+    <button id="panelOpen" class="icon-btn floating" title="Show panel" hidden>&#x203A;</button>
+    <div id="timebar">
+      <button id="playBtn" class="icon-btn" title="Animate last hour">&#x25B6;</button>
+      <div id="frameTime">Latest scan</div>
+      <input id="frameSlider" type="range" min="0" max="0" value="0" disabled>
+      <button id="refreshBtn" class="icon-btn" title="Refresh now">&#x21bb;</button>
+      <div id="status" class="muted small"></div>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="app.js"></script>
+<script src="addons/storm-alerts.js"></script>
+<script src="addons/monitor-link.js"></script>
+<script src="addons/rapid-mosaic.js"></script>
+<script src="addons/iphone.js"></script>
+</body>
+</html>

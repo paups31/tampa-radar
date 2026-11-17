@@ -1,0 +1,6 @@
+/* Add-on styles: rapid multi-radar mosaic */
+.rm-sites { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 3px; font-size: 12px; }
+.rm-sites li { display: flex; justify-content: space-between; background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; }
+.rm-sites li span:last-child { color: var(--muted); font-variant-numeric: tabular-nums; }
+.rm-sites li.stale { opacity: .5; }
+#rmInfo b { color: var(--text); }
