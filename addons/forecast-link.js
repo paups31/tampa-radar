@@ -12,6 +12,8 @@
   search.after(sec);
   function openFc(lat, lon, name) {
     const u = `forecast.html?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}&name=${encodeURIComponent(name)}`;
+    // Inside the installed phone app (or on a small screen) open it in place; on a computer, in its own window.
+    if (window.WeatherBoyApp?.standalone || matchMedia('(max-width: 760px)').matches) { location.href = u; return; }
     const w = window.open(u, 'tampaRadarForecast', 'popup,width=1180,height=900');
     if (w) w.focus(); else location.href = u;       // popup blocked (e.g. iPhone home-screen app): open in place
   }

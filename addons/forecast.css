@@ -57,3 +57,7 @@ summary { cursor: pointer; color: var(--text-2); }
 footer { font-size: 12px; margin-top: 8px; }
 .fc-error { background: #3d1d20; border: 1px solid #6e2a30; color: #ffb3b8; border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; }
 @media (max-width: 760px) { .fc-grid { grid-template-columns: 1fr; } .fc-tile .v { font-size: 22px; } }
+.fc-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.fc-nav { background: var(--card-2); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; text-decoration: none; }
+.fc-nav:hover { border-color: #58a6ff; }
+#fc { padding-top: max(18px, env(safe-area-inset-top)); }

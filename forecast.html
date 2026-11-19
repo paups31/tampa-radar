@@ -6,6 +6,11 @@
 <title>24-Hour Forecast · WeatherBoy Radar</title>
 <meta name="theme-color" content="#0d1117">
 <link rel="icon" type="image/png" href="addons/icons/icon-192.png">
+<link rel="manifest" href="addons/manifest.webmanifest">
+<link rel="apple-touch-icon" href="addons/icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WeatherBoy">
 <link rel="stylesheet" href="addons/forecast.css">
 </head>
 <body>
@@ -16,6 +21,8 @@
       <div class="fc-sub"><span class="fc-badge">Forecast</span> Separate from the live radar. <span id="fcIssued" class="muted"></span></div>
     </div>
     <div class="fc-actions">
+      <a class="fc-nav" href="home.html">&#x2302; Home</a>
+      <a class="fc-nav" href="index.html">&#x1F4E1; Radar</a>
       <button id="fcRefresh" type="button" title="Reload the forecast">&#x21bb; Refresh</button>
     </div>
   </header>
@@ -43,5 +50,6 @@
 </main>
 <div id="fcTip" class="fc-tip" hidden></div>
 <script src="addons/forecast.js"></script>
+<script src="addons/app-install.js"></script>
 </body>
 </html>
