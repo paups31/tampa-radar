@@ -1,0 +1,12 @@
+/* Add-on styles: lightning */
+.lt-sw { background: linear-gradient(90deg, #ffffcc, #ffec78, #ffa400, #ff4500, #ff0000); }
+.lt-near { margin: 8px 0 6px; line-height: 1.45; }
+.lt-near b { color: var(--text); }
+.lt-near.lt-clear::before { content: '\2713  '; color: #3fb950; }
+.lt-near.lt-warn { color: #f0b429; }
+.lt-near.lt-warn b { color: #f0b429; }
+.lt-near.lt-danger { color: #ff6b6b; }
+.lt-near.lt-danger b { color: #ff6b6b; }
+.lt-near.lt-warn::before, .lt-near.lt-danger::before { content: '\26A1 '; }
+.lt-legend { margin: 6px 0; }
+.lt-legend img { display: block; max-width: 100%; margin-top: 4px; }

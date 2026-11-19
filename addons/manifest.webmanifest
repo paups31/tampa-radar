@@ -1,8 +1,8 @@
 {
-  "name": "Tampa Bay Radar",
-  "short_name": "Radar",
-  "description": "Live Florida weather radar, storm tracking and alerts centered on Tampa.",
-  "start_url": "../index.html",
+  "name": "WeatherBoy Radar",
+  "short_name": "WeatherBoy",
+  "description": "WeatherBoy Radar: live Florida weather radar, storm tracking and alerts centered on Tampa.",
+  "start_url": "../home.html",
   "scope": "../",
   "display": "standalone",
   "orientation": "any",

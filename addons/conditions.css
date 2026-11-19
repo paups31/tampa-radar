@@ -1,0 +1,30 @@
+/* Add-on styles: surface conditions, satellite views, wind shear, forecast button */
+.sf-label span, .st-fog span {
+  display: inline-block; transform: translate(-50%, -50%); white-space: nowrap; font: 600 11px/1.2 system-ui, sans-serif;
+  color: #fff; background: rgba(13, 17, 23, .82); border: 2px solid #888; border-radius: 9px; padding: 1px 5px;
+  text-shadow: 0 1px 1px #000;
+}
+.sf-tampa { margin: 6px 0; }
+.sf-tampa b, .st-info b { color: var(--text); }
+.st-info { margin: 6px 0; line-height: 1.45; }
+.st-legend { display: block; max-width: 100%; margin: 6px 0; background: #fff; border-radius: 4px; }
+.st-fog.st-mist span { border-color: #9fb3c8; }
+.st-fog.st-fog span { border-color: #f0b429; }
+.st-fog.st-dense span { border-color: #ff5d5d; }
+.st-aqi-title { margin-top: 8px; font-weight: 600; color: var(--text); }
+.st-aqi { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 3px; }
+.st-aqi li { display: flex; justify-content: space-between; gap: 8px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; }
+.ws-arrow { pointer-events: none; }
+.ws-btns { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+.ws-btns button, .fc-open {
+  background: var(--panel-2); color: var(--text); border: 1px solid var(--line); border-radius: 7px;
+  padding: 6px 10px; font: inherit; font-size: 13px; cursor: pointer;
+}
+.ws-btns button:hover, .fc-open:hover { border-color: #58a6ff; }
+.fc-open { width: 100%; font-weight: 600; padding: 9px 10px; }
+.ws-tampa { margin: 6px 0; }
+.ws-tampa b { color: var(--text); }
+.st-legend[hidden] { display: none; }
+.home-link { display: block; text-align: center; margin: 0 0 8px; padding: 8px 10px; border-radius: 7px; border: 1px solid var(--line);
+  background: var(--panel-2); color: var(--text); text-decoration: none; font-weight: 600; font-size: 13px; }
+.home-link:hover { border-color: #58a6ff; }

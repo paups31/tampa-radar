@@ -415,7 +415,7 @@
   };
   $('#saTest').onclick = async () => {
     try {
-      await push({ title: '✅ Tampa Bay Radar test', message: `Phone alerts are working.\nHome: ${S.home.name} · radius ${S.radiusMi} mi · ${S.leadMin} min lead.` }, 'moderate');
+      await push({ title: '✅ WeatherBoy Radar test', message: `Phone alerts are working.\nHome: ${S.home.name} · radius ${S.radiusMi} mi · ${S.leadMin} min lead.` }, 'moderate');
       logLine('Test notification sent');
     } catch (e) { logLine('Test failed: ' + e.message); }
   };

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>24-Hour Forecast · WeatherBoy Radar</title>
+<meta name="theme-color" content="#0d1117">
+<link rel="icon" type="image/png" href="addons/icons/icon-192.png">
+<link rel="stylesheet" href="addons/forecast.css">
+</head>
+<body>
+<main id="fc">
+  <header class="fc-head">
+    <div>
+      <h1>24-hour forecast <span id="fcPlace">Tampa, FL</span></h1>
+      <div class="fc-sub"><span class="fc-badge">Forecast</span> Separate from the live radar. <span id="fcIssued" class="muted"></span></div>
+    </div>
+    <div class="fc-actions">
+      <button id="fcRefresh" type="button" title="Reload the forecast">&#x21bb; Refresh</button>
+    </div>
+  </header>
+
+  <section id="fcTiles" class="fc-tiles" aria-label="Summary"></section>
+  <section class="fc-card"><h2>Hour by hour</h2><div id="fcStrip" class="fc-strip"></div></section>
+
+  <div class="fc-grid">
+    <section class="fc-card"><h2>Temperature &amp; dew point <span class="unit">°F</span></h2><div id="chTemp" class="fc-chart"></div></section>
+    <section class="fc-card"><h2>Chance of rain <span class="unit">%</span></h2><div id="chRain" class="fc-chart"></div><div id="fcQpf" class="fc-note"></div></section>
+    <section class="fc-card"><h2>Wind &amp; gusts <span class="unit">mph</span></h2><div id="chWind" class="fc-chart"></div></section>
+    <section class="fc-card"><h2>Humidity <span class="unit">%</span></h2><div id="chRh" class="fc-chart"></div></section>
+    <section class="fc-card"><h2>Cloud cover <span class="unit">%</span></h2><div id="chSky" class="fc-chart"></div></section>
+    <section class="fc-card"><h2>Air pressure <span class="unit">mb</span></h2><div id="chPres" class="fc-chart"></div></section>
+  </div>
+
+  <section class="fc-card"><h2>National Weather Service forecast</h2><div id="fcText" class="fc-text"></div></section>
+
+  <section class="fc-card">
+    <details><summary>Table view (all hourly values)</summary><div id="fcTable" class="fc-table-wrap"></div></details>
+  </section>
+
+  <footer class="muted">Forecast: NOAA National Weather Service (api.weather.gov) · Air pressure: Open-Meteo.
+    Updates every 30 minutes. For current conditions and storms, use the live radar window.</footer>
+</main>
+<div id="fcTip" class="fc-tip" hidden></div>
+<script src="addons/forecast.js"></script>
+</body>
+</html>

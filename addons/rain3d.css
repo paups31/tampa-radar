@@ -1,0 +1,60 @@
+/* Add-on styles: 3D rainfall bars */
+.r3-sw { background: linear-gradient(90deg, #9be7a8, #2fbf71, #ffe84d, #ff8c1a, #e8213a, #d63bff); }
+#r3d { position: absolute; inset: 0; z-index: 1500; background: #0d1117; }
+#r3d[hidden] { display: none; }
+#r3dMap { position: absolute; inset: 0; }
+#r3d .r3-top {
+  position: absolute; top: 10px; left: 10px; right: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  background: rgba(13, 17, 23, .86); border: 1px solid var(--line, #30363d); border-radius: 10px; padding: 8px 10px;
+  color: var(--text, #e6edf3); font-size: 13px; backdrop-filter: blur(6px);
+}
+#r3d .r3-title { font-weight: 700; margin-right: auto; }
+#r3d .r3-title .muted { font-weight: 400; }
+#r3d button {
+  background: var(--panel-2, #1c2128); color: var(--text, #e6edf3); border: 1px solid var(--line, #30363d);
+  border-radius: 7px; padding: 5px 10px; font: inherit; cursor: pointer; min-height: 32px;
+}
+#r3d button:hover { border-color: #58a6ff; }
+#r3d .r3-seg { display: inline-flex; }
+#r3d .r3-seg button { border-radius: 0; }
+#r3d .r3-seg button:first-child { border-radius: 7px 0 0 7px; }
+#r3d .r3-seg button:last-child { border-radius: 0 7px 7px 0; border-left: 0; }
+#r3d .r3-seg button.on { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+#r3d .r3-h { display: inline-flex; align-items: center; gap: 6px; }
+#r3d .r3-h input { width: 90px; }
+#r3d .r3-close { font-size: 20px; line-height: 1; padding: 2px 10px; }
+#r3d .r3-bottom {
+  position: absolute; left: 10px; bottom: 26px; max-width: min(560px, calc(100% - 70px)); display: grid; gap: 6px;
+  background: rgba(13, 17, 23, .86); border: 1px solid var(--line, #30363d); border-radius: 10px; padding: 8px 10px;
+  color: var(--text, #e6edf3); font-size: 12px; backdrop-filter: blur(6px);
+}
+#r3d .r3-leg-title { font-weight: 600; margin-bottom: 3px; }
+#r3d .r3-leg-bar { height: 10px; border-radius: 4px; }
+#r3d .r3-leg-ticks { display: flex; justify-content: space-between; color: var(--muted, #8b949e); margin-top: 2px; }
+#r3d .r3-stats b { color: #fff; }
+#r3d .muted { color: var(--muted, #8b949e); }
+#r3d .r3-busy {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(13, 17, 23, .9);
+  color: #e6edf3; padding: 10px 16px; border-radius: 10px; border: 1px solid #30363d; font-size: 14px;
+}
+@media (max-width: 760px) {
+  #r3d .r3-top { font-size: 12px; gap: 6px; }
+  #r3d .r3-title { width: 100%; }
+  #r3d .r3-h input { width: 70px; }
+  #r3d .r3-bottom { bottom: 64px; }
+}
+/* Controls always sit above the 3D scene: bars pass behind the options bar and legend, never over them. */
+#r3d .r3-top, #r3d .r3-bottom { z-index: 10; background: rgba(13, 17, 23, .94); box-shadow: 0 6px 18px rgba(0, 0, 0, .45); }
+#r3d .r3-busy { z-index: 11; }
+#r3d .maplibregl-ctrl-bottom-right { z-index: 10; }
+/* Wind vectors legend + toggle (added by windshear.js) */
+#r3d .r3-top button.on { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+#r3d .r3-wind {
+  position: absolute; right: 10px; top: 70px; z-index: 10; width: 210px; display: grid; gap: 3px;
+  background: rgba(13, 17, 23, .94); border: 1px solid var(--line, #30363d); border-radius: 10px; padding: 8px 10px;
+  color: var(--text, #e6edf3); font-size: 12px; box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+}
+#r3d .r3-wind[hidden] { display: none; }
+#r3d .r3-wl { display: flex; align-items: center; gap: 6px; }
+#r3d .r3-wl i { width: 18px; height: 4px; border-radius: 2px; display: inline-block; }
+@media (max-width: 760px) { #r3d .r3-wind { top: auto; bottom: 150px; width: 180px; } }

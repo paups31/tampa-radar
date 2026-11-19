@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WeatherBoy Radar</title>
+<meta name="theme-color" content="#0d1117">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WeatherBoy">
+<link rel="apple-touch-icon" href="addons/icons/icon-180.png">
+<link rel="icon" type="image/png" href="addons/icons/icon-192.png">
+<link rel="manifest" href="addons/manifest.webmanifest">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="addons/home.css">
+</head>
+<body>
+<main id="home">
+  <header class="h-head">
+    <div>
+      <h1>WeatherBoy Radar <span class="h-place">Tampa Bay</span></h1>
+      <div class="h-sub"><span id="hClock"></span> · <span class="live-dot"></span> Live · <span id="hUpdated" class="muted"></span></div>
+    </div>
+    <a class="h-radar-btn" href="index.html">Open live radar <span aria-hidden="true">&#x203A;</span></a>
+  </header>
+
+  <div id="hAlerts"></div>
+
+  <section class="h-now card" aria-label="Current conditions">
+    <div class="h-now-main">
+      <div id="hNowIcon" class="h-now-icon">…</div>
+      <div>
+        <div id="hNowTemp" class="h-now-temp">--°</div>
+        <div id="hNowDesc" class="h-now-desc">Loading current conditions…</div>
+        <div id="hNowHiLo" class="muted small"></div>
+      </div>
+    </div>
+    <dl id="hNowStats" class="h-now-stats"></dl>
+  </section>
+
+  <a class="card h-map" href="index.html" aria-label="Open the live radar">
+    <div id="hMap"></div>
+    <div class="h-map-cta"><span class="h-map-pulse"></span>Tap to open the live radar with all options <span aria-hidden="true">&#x203A;</span></div>
+    <div id="hMapTime" class="h-map-time"></div>
+  </a>
+
+  <div class="h-grid">
+    <a class="card h-tile" href="index.html?show=storms" id="tStorms">
+      <h2>&#x26C8;&#xFE0F; Storms near Tampa</h2><div class="h-big" id="sBig">--</div><div class="h-detail" id="sDetail">Checking radar…</div>
+    </a>
+    <a class="card h-tile" href="index.html?show=lightning" id="tLightning">
+      <h2>&#x26A1; Lightning</h2><div class="h-big" id="lBig">--</div><div class="h-detail" id="lDetail">Checking…</div>
+    </a>
+    <a class="card h-tile" href="forecast.html" id="tForecast">
+      <h2>&#x1F4C5; Next 12 hours</h2><div id="fStrip" class="h-fstrip"></div><div class="h-detail" id="fDetail">Loading forecast…</div>
+      <div class="h-more">Full 24-hour forecast &#x203A;</div>
+    </a>
+    <a class="card h-tile" href="index.html?show=rain3d" id="tRain">
+      <h2>&#x1F327;&#xFE0F; Rain</h2><div class="h-big" id="rBig">--</div><div class="h-detail" id="rDetail">Checking…</div>
+      <div class="h-more">See it in 3D &#x203A;</div>
+    </a>
+    <a class="card h-tile" href="index.html?show=shear" id="tWind">
+      <h2>&#x1F32C;&#xFE0F; Wind &amp; shear</h2><div class="h-big" id="wBig">--</div><div class="h-detail" id="wDetail">Checking…</div>
+    </a>
+    <a class="card h-tile" href="index.html?show=smog" id="tAir">
+      <h2>&#x1F343; Air quality</h2><div class="h-big" id="aBig">--</div><div class="h-detail" id="aDetail">Checking…</div>
+    </a>
+    <a class="card h-tile" href="index.html?show=fog" id="tSky">
+      <h2>&#x2601;&#xFE0F; Sky &amp; visibility</h2><div class="h-big" id="kBig">--</div><div class="h-detail" id="kDetail">Checking…</div>
+    </a>
+    <div class="card h-tile" id="tPhone">
+      <h2>&#x1F4F1; Phone alerts</h2><div class="h-big" id="pBig">--</div><div class="h-detail" id="pDetail">Checking the background monitor…</div>
+    </div>
+  </div>
+
+  <section class="card h-quick" aria-label="Open the radar with a view">
+    <h2>Jump straight to</h2>
+    <div class="h-chips">
+      <a href="index.html">Radar</a>
+      <a href="index.html?show=lightning">Lightning</a>
+      <a href="index.html?show=rain3d">3D rainfall</a>
+      <a href="index.html?show=wind3d">3D wind</a>
+      <a href="index.html?show=clouds">Clouds</a>
+      <a href="index.html?show=temp">Temperature</a>
+      <a href="index.html?show=humidity">Humidity</a>
+      <a href="index.html?show=pressure">Pressure</a>
+      <a href="index.html?show=fog">Fog</a>
+      <a href="index.html?show=smog">Smog</a>
+      <a href="forecast.html">24-hour forecast</a>
+    </div>
+  </section>
+
+  <footer class="muted small">Live data: NOAA/NWS, NEXRAD via Iowa Environmental Mesonet, NOAA nowCOAST lightning, airport stations (ASOS),
+    Open-Meteo. Refreshes every 2 minutes.</footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="addons/obs.js"></script>
+<script src="addons/home.js"></script>
+</body>
+</html>
