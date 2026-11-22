@@ -1,12 +1,12 @@
 /* Add-on: a light radar loop for phones.
  * The base loop adds 12 full tile layers at once. On an iPhone that runs Safari out of memory, the page crashes
  * and iOS shows "A problem repeatedly occurred". On phones this add-on takes over the Play button instead:
- * one screen-sized image per frame (8 frames), downloaded one after another, all shown in a single overlay.
+ * one screen-sized image per frame (10 frames spread over the past hour), downloaded one after another, all shown in a single overlay.
  * Desktop keeps the base app's loop. Uses only the base app's public globals and UI. */
 'use strict';
 (() => {
   const isPhone = () => matchMedia('(max-width: 760px)').matches || /iPhone|iPad|iPod|Android/.test(navigator.userAgent);
-  const FRAMES = 8, STEP_MS = 650, HOLD = 3;
+  const FRAMES = 10, SPAN_MS = 60 * 60e3, STEP_MS = 600, HOLD = 3;
   const $ = s => document.querySelector(s);
   const btn = $('#playBtn'), slider = $('#frameSlider'), label = $('#frameTime');
   let loop = null;   // { frames:[{time,url}], idx, timer, overlay, token }
@@ -20,12 +20,27 @@
   }
   const preload = url => new Promise(res => { const i = new Image(); i.onload = () => res(true); i.onerror = () => res(false); i.src = url; });
 
+  // Spread the frames across the past hour (scans arrive every ~2 min, so the newest few barely show motion).
+  function pickTimes(all) {
+    if (!all.length) return [];
+    const newest = Date.parse(all[all.length - 1]);
+    const picked = [];
+    for (let k = FRAMES - 1; k >= 0; k--) {
+      const target = newest - k * SPAN_MS / (FRAMES - 1);
+      let best = null, bd = Infinity;
+      for (const t of all) { const d = Math.abs(Date.parse(t) - target); if (d < bd) { bd = d; best = t; } }
+      if (best && picked[picked.length - 1] !== best) picked.push(best);
+    }
+    return picked;
+  }
+  const agoLabel = t => { const m = Math.round((Date.parse(loop.frames[loop.frames.length - 1].time) - Date.parse(t)) / 60e3); return m ? ` · −${m} min` : ' · latest'; };
+
   function show(i) {
     const f = loop.frames[i];
     loop.idx = i;
     loop.overlay.setUrl(f.url);
     slider.value = i;
-    label.textContent = fmtTime(new Date(f.time)) + (i === loop.frames.length - 1 ? ' · latest' : '');
+    label.textContent = fmtTime(new Date(f.time)) + agoLabel(f.time);
   }
 
   function stop(keepLabel) {
@@ -41,7 +56,7 @@
 
   async function start() {
     const layer = currentProductLayer();
-    const times = (state.times[layer] || []).slice(-FRAMES);
+    const times = pickTimes(state.times[layer] || []);
     if (times.length < 2) { label.textContent = 'No loop frames yet'; return; }
     const b = map.getBounds(), size = map.getSize();
     const scale = Math.min(1, 900 / Math.max(size.x, size.y));          // cap image size: memory, not detail
