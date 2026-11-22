@@ -150,12 +150,22 @@
       windBox = document.createElement('div');
       windBox.className = 'r3-wind';
       Rain3D.element.appendChild(windBox);
+      // Phones: keep the wind legend sitting just above the rain legend, whatever its height.
+      const bottomBox = Rain3D.element.querySelector('.r3-bottom');
+      const place = () => {
+        if (!matchMedia('(max-width: 760px)').matches || !bottomBox) { windBox.style.bottom = ''; return; }
+        const gap = Rain3D.element.getBoundingClientRect().bottom - bottomBox.getBoundingClientRect().top;
+        if (gap > 0) windBox.style.bottom = `${Math.round(gap + 8)}px`;
+      };
+      if (bottomBox && window.ResizeObserver) new ResizeObserver(place).observe(bottomBox);
+      addEventListener('resize', place);
+      setTimeout(place, 0);
     }
     windBox.hidden = !prefs.vectors;
     if (!prefs.vectors) return;
     windBox.innerHTML = `<div class="r3-leg-title">Wind by height <span class="muted">(${VEX}× taller)</span></div>` +
       LEVELS.slice().reverse().map(l => `<div class="r3-wl"><i style="background:rgb(${l.color.join(',')})"></i>${l.label}</div>`).join('') +
-      `<div class="muted">Arrows point downwind; longer = faster. A big turn or speed-up with height = strong shear.</div>` +
+      `<div class="muted r3-wnote">Arrows point downwind; longer = faster. A big turn or speed-up with height = strong shear.</div>` +
       (data ? '' : '<div class="muted">Loading winds…</div>');
   }
 

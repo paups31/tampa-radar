@@ -58,3 +58,27 @@
 #r3d .r3-wl { display: flex; align-items: center; gap: 6px; }
 #r3d .r3-wl i { width: 18px; height: 4px; border-radius: 2px; display: inline-block; }
 @media (max-width: 760px) { #r3d .r3-wind { top: auto; bottom: 150px; width: 180px; } }
+/* Newer iPhones (Dynamic Island / notch, home indicator): keep every 3D control clear of the camera area and edges. */
+#r3d { --r3-st: env(safe-area-inset-top, 0px); --r3-sl: env(safe-area-inset-left, 0px);
+  --r3-sr: env(safe-area-inset-right, 0px); --r3-sb: env(safe-area-inset-bottom, 0px); }
+#r3d .r3-top { top: calc(10px + var(--r3-st)); left: calc(10px + var(--r3-sl)); right: calc(10px + var(--r3-sr));
+  max-height: calc(100% - 140px - var(--r3-st) - var(--r3-sb)); overflow-y: auto; overscroll-behavior: contain; }
+#r3d .r3-bottom { left: calc(10px + var(--r3-sl)); bottom: calc(26px + var(--r3-sb)); }
+#r3d .r3-wind { top: calc(70px + var(--r3-st)); right: calc(10px + var(--r3-sr)); }
+@media (max-width: 760px) {
+  /* Title and the close (×) share the first row so × is always reachable; the options wrap below it. */
+  #r3d .r3-top > * { order: 2; }
+  #r3d .r3-top .r3-title { order: 0; width: auto; flex: 1 1 calc(100% - 60px); min-width: 0; }
+  #r3d .r3-top .r3-close { order: 1; min-width: 44px; min-height: 44px; }
+  #r3d .r3-top button { min-height: 40px; }
+  #r3d .r3-seg button { padding: 5px 9px; }
+  #r3d .r3-h input { flex: 1; min-width: 80px; }
+  #r3d .r3-bottom { bottom: calc(64px + var(--r3-sb)); max-width: calc(100% - 20px - var(--r3-sl) - var(--r3-sr)); }
+  #r3d .r3-wind { top: auto; bottom: calc(150px + var(--r3-sb)); }
+  #r3d .maplibregl-ctrl-bottom-right { margin-bottom: var(--r3-sb); }
+}
+@media (max-width: 760px) {
+  #r3d .r3-wind { grid-template-columns: 1fr 1fr; column-gap: 10px; width: auto; max-width: calc(100% - 20px - var(--r3-sl) - var(--r3-sr)); }
+  #r3d .r3-wind .r3-leg-title, #r3d .r3-wind > .muted { grid-column: 1 / -1; }
+  #r3d .r3-wind .r3-wnote { display: none; }
+}

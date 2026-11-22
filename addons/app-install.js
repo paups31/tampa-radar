@@ -35,7 +35,7 @@
     .wb-tabs a span { display:block; font-size:21px; line-height:1.15; }
     .wb-tabs a.on { color:#58a6ff; }
     html.wb-tabbed body { padding-bottom:calc(64px + env(safe-area-inset-bottom)); }
-    .wb-home-fab { position:absolute; z-index:1001; left:10px; top:calc(58px + env(safe-area-inset-top)); width:44px; height:44px; border-radius:12px;
+    .wb-home-fab { position:absolute; z-index:1001; left:10px; top:calc(272px + env(safe-area-inset-top)); width:44px; height:44px; border-radius:12px;
       background:rgba(13,17,23,.9); border:1px solid #30363d; color:#e6edf3; display:flex; align-items:center; justify-content:center;
       font-size:22px; text-decoration:none; box-shadow:0 4px 12px rgba(0,0,0,.4); }`;
   document.head.appendChild(css);
