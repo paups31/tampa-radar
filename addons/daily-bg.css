@@ -1,0 +1,21 @@
+/* Daily background photo (addons/daily-bg.js): photo behind the page, darkened so text stays easy to read,
+ * and cards turned to frosted glass so the photo shows through. */
+html.wb-has-bg { background: #0d1117; }
+html.wb-has-bg body { background: transparent !important; }
+.wb-bg { position: fixed; inset: 0; z-index: -1; background: #0d1117 center / cover no-repeat; opacity: 0; transition: opacity .9s ease; }
+.wb-bg.on { opacity: 1; }
+.wb-bg::after { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(13,17,23,.22) 0%, rgba(13,17,23,.5) 45%, rgba(13,17,23,.78) 100%); }
+
+/* frosted cards (home + forecast) */
+html.wb-has-bg .card:not(.h-hero), html.wb-has-bg .h-tile, html.wb-has-bg .fc-card, html.wb-has-bg .fc-tile {
+  background: rgba(22, 27, 34, .80); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+html.wb-has-bg .h-tile:has(.h-big.bad) { background: rgba(48, 22, 25, .84); }
+html.wb-has-bg .h-hero { box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+html.wb-has-bg .h-head, html.wb-has-bg .h-sec, html.wb-has-bg .fc-head, html.wb-has-bg footer { text-shadow: 0 1px 3px rgba(0,0,0,.8); }
+html.wb-has-bg .h-sec { color: #c9d1d9; }
+html.wb-has-bg .fc-sub, html.wb-has-bg .fc-sub .muted, html.wb-has-bg .h-sub, html.wb-has-bg .h-sub .muted { color: #dde3ea; }
+
+.wb-bg-credit { font-size: 11px; color: #a9b4bf; margin-top: 8px; line-height: 1.5; text-shadow: 0 1px 3px rgba(0,0,0,.8); }
+.wb-bg-credit a { color: #c9d1d9; text-decoration: underline; text-decoration-color: rgba(201,209,217,.4); }
+#fc > .wb-bg-credit { margin-top: 14px; }
