@@ -50,6 +50,7 @@
   };
 
   function restartLoopIfPlaying() {
+    if (window.PhoneLoop?.playing) { window.PhoneLoop.restart(); return; }   // phone loop (addons/phone-loop.js)
     if (!state.playing || !state.playTimer) return;
     const b = document.getElementById('playBtn');
     b.click();                       // stop
