@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WeatherBoy Storm Loop</title>
+<meta name="theme-color" content="#0d1117">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Storm Loop">
+<link rel="apple-touch-icon" href="addons/icons/icon-180.png">
+<link rel="icon" type="image/png" href="addons/icons/icon-192.png">
+<link rel="manifest" href="addons/loop.webmanifest">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="addons/loop-app.css">
+</head>
+<body>
+<div id="lmap"></div>
+
+<header class="la-top">
+  <div class="la-row">
+    <a class="la-home" href="home.html" aria-label="WeatherBoy home">&#x2039;</a>
+    <div class="la-title"><b>Storm Loop</b><span id="laSite">KTBW · Tampa Bay</span></div>
+    <button type="button" id="laLocate" class="la-icon" aria-label="Show my location">&#x25CE;</button>
+  </div>
+  <div class="la-chips" id="laRadars" role="group" aria-label="Radar"></div>
+</header>
+
+<section class="la-panel" aria-label="Radar loop controls">
+  <div class="la-time"><b id="laClock">--</b><span id="laAgo"></span></div>
+  <div class="la-track" id="laTrack" aria-label="Loop frames"></div>
+  <div class="la-ctrl">
+    <button type="button" id="laPlay" class="la-play" aria-label="Play loop">&#x25B6;</button>
+    <div class="la-seg" id="laProduct" role="group" aria-label="Product">
+      <button type="button" data-v="refl" class="on">Rain</button><button type="button" data-v="vel">Wind</button>
+    </div>
+    <div class="la-seg" id="laSpan" role="group" aria-label="Loop length">
+      <button type="button" data-v="30">30m</button><button type="button" data-v="60" class="on">1h</button><button type="button" data-v="120">2h</button>
+    </div>
+    <button type="button" id="laSpeed" class="la-pill" aria-label="Loop speed">1&times;</button>
+  </div>
+  <div class="la-status" id="laStatus">Loading radar…</div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="addons/loop-app.js"></script>
+</body>
+</html>

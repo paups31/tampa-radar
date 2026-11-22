@@ -1,0 +1,52 @@
+/* WeatherBoy Storm Loop (loop.html): a light, iPhone-first radar loop. */
+:root { --bg:#0d1117; --glass:rgba(13,17,23,.82); --line:#30363d; --text:#e6edf3; --text2:#b8c2cc; --accent:#58a6ff;
+  --st:env(safe-area-inset-top,0px); --sb:env(safe-area-inset-bottom,0px); --sl:env(safe-area-inset-left,0px); --sr:env(safe-area-inset-right,0px); }
+* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html, body { margin:0; height:100%; background:var(--bg); color:var(--text); overflow:hidden;
+  font:15px/1.35 system-ui,-apple-system,"Segoe UI",sans-serif; }
+#lmap { position:fixed; inset:0; background:#0b0f14; }
+button { font:inherit; color:inherit; cursor:pointer; }
+
+.la-top { position:fixed; z-index:1000; top:calc(8px + var(--st)); left:calc(8px + var(--sl)); right:calc(8px + var(--sr));
+  background:var(--glass); border:1px solid var(--line); border-radius:16px; padding:8px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+.la-row { display:flex; align-items:center; gap:8px; }
+.la-home, .la-icon { flex:none; width:40px; height:40px; border-radius:12px; border:1px solid var(--line); background:#1c2128;
+  display:grid; place-items:center; text-decoration:none; color:var(--text); font-size:22px; line-height:1; }
+.la-title { flex:1; min-width:0; display:flex; flex-direction:column; }
+.la-title b { font-size:16px; }
+.la-title span { color:var(--text2); font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.la-chips { display:flex; gap:6px; overflow-x:auto; margin-top:8px; scrollbar-width:none; }
+.la-chips::-webkit-scrollbar { display:none; }
+.la-chips button { flex:none; min-height:36px; padding:0 12px; border-radius:18px; border:1px solid var(--line); background:#1c2128; font-size:13px; }
+.la-chips button.on { background:#1f6feb; border-color:#1f6feb; color:#fff; font-weight:700; }
+
+.la-panel { position:fixed; z-index:1000; left:calc(8px + var(--sl)); right:calc(8px + var(--sr)); bottom:calc(8px + var(--sb));
+  background:var(--glass); border:1px solid var(--line); border-radius:18px; padding:10px 12px 8px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+.la-time { display:flex; align-items:baseline; gap:8px; }
+.la-time b { font-size:22px; font-variant-numeric:tabular-nums; }
+.la-time span { color:var(--text2); font-size:14px; }
+.la-time span.latest { color:#3fb950; font-weight:700; }
+.la-track { display:flex; gap:3px; height:28px; align-items:center; margin:6px 0 8px; touch-action:none; }
+.la-track i { flex:1; height:8px; border-radius:4px; background:#30363d; transition:background .15s, height .15s; }
+.la-track i.ok { background:#3d4a5c; }
+.la-track i.cur { background:var(--accent); height:18px; }
+.la-track i.cur.last { background:#3fb950; }
+.la-ctrl { display:flex; align-items:center; gap:8px; }
+.la-play { flex:none; width:52px; height:52px; border-radius:50%; border:0; background:#1f6feb; color:#fff; font-size:22px; }
+.la-play:disabled { opacity:.5; }
+.la-seg { display:flex; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+.la-seg button { min-height:40px; padding:0 10px; border:0; background:#1c2128; font-size:13px; }
+.la-seg button + button { border-left:1px solid var(--line); }
+.la-seg button.on { background:#30363d; color:#fff; font-weight:700; }
+.la-pill { min-height:40px; min-width:44px; padding:0 10px; border-radius:12px; border:1px solid var(--line); background:#1c2128; font-size:13px; margin-left:auto; }
+.la-status { color:var(--text2); font-size:12px; margin-top:6px; min-height:16px; }
+.la-status.err { color:#ffb3b8; }
+
+.la-frame { image-rendering:auto; }
+.la-me { width:16px; height:16px; border-radius:50%; background:#58a6ff; border:3px solid #fff; box-shadow:0 0 0 6px rgba(88,166,255,.3); }
+.leaflet-control-attribution { font-size:9px; margin-bottom:calc(150px + var(--sb)) !important; background:rgba(13,17,23,.6) !important; color:#8b949e !important; }
+.leaflet-control-attribution a { color:#8b949e !important; }
+.leaflet-top { top:calc(110px + var(--st)); }
+
+@media (max-width:360px) { .la-seg button { padding:0 7px; } .la-time b { font-size:19px; } }
+@media (min-width:700px) { .la-panel { left:auto; width:520px; } .la-top { right:auto; width:520px; } }
