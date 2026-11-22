@@ -2,14 +2,14 @@
  * App files are network-first (you always get the newest version when online) with a cached copy as a
  * fallback, so the app still opens without signal. Live weather data (other sites) is never cached.
  */
-const CACHE = 'weatherboy-v7';
+const CACHE = 'weatherboy-v8';
 const SHELL = [
   'home.html', 'index.html', 'forecast.html', 'app.js', 'styles.css',
   'addons/manifest.webmanifest', 'addons/icons/icon-180.png', 'addons/icons/icon-192.png', 'addons/icons/icon-512.png',
   'addons/home.css', 'addons/home.js', 'addons/obs.js', 'addons/forecast.css', 'addons/forecast.js',
   'addons/branding.js', 'addons/app-install.js', 'addons/live.js',
   'loop.html', 'addons/loop-app.js', 'addons/loop-app.css', 'addons/loop.webmanifest',
-  'addons/home2.css', 'addons/home-extra.js', 'addons/daily-bg.css', 'addons/daily-bg.js', 'addons/bg-photos.js',
+  'addons/home2.css', 'addons/home-extra.js', 'addons/daily-bg.css', 'addons/daily-bg.js', 'addons/bg-photos.js', 'addons/units.js',
 ];
 
 self.addEventListener('install', e => {

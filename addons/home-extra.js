@@ -127,7 +127,9 @@
     const h = +fmt(Date.now(), { hour: 'numeric', hourCycle: 'h23' });
     const [hello, icon] = h >= 5 && h < 12 ? ['Good morning', '🌅'] : h >= 12 && h < 17 ? ['Good afternoon', '☀️']
       : h >= 17 && h < 21 ? ['Good evening', '🌇'] : ['Good night', '🌙'];
-    const t = $('hNowTemp')?.textContent, d = $('hNowDesc')?.textContent;
+    // read the original (imperial) text: addons/units.js converts this line itself when Metric is on
+    const raw = el => window.WBUnits ? WBUnits.raw(el) : el?.textContent;
+    const t = raw($('hNowTemp')), d = raw($('hNowDesc'));
     const have = t && !/--/.test(t) && d && !/Loading/.test(d);
     el.innerHTML = `<span aria-hidden="true">${icon}</span> <b>${hello}</b>${have ? `<span class="h-greet-now"><span class="sep"> · </span>It's ${t} and ${d.toLowerCase()} in Tampa</span>` : ''}`;
   }

@@ -189,21 +189,25 @@
       <div class="t">${i === 0 ? 'Now' : hr(hours[i])}</div><div class="e">${emoji(x.shortForecast, x.isDaytime)}</div>
       <div class="tp">${x.temperature}°</div><div class="p">💧${pop[i]}%</div></div>`).join('');
 
+    // Charts and the table show bare numbers, so they follow the units switch here (addons/units.js converts the rest).
+    const U = window.WBUnits, isM = !!U?.metric;
+    const tU = v => v == null ? v : isM ? Math.round(U.temp(v)) : v, sU = v => v == null ? v : isM ? Math.round(U.speed(v)) : v;
+    const tUnit = isM ? '°C' : '°F', sUnit = isM ? 'km/h' : 'mph';
     chart($('#chTemp'), hours, [
-      { name: 'Temperature', label: 'Temp', color: C.s2, values: temp, fmt: v => `${Math.round(v)}°F` },
-      { name: 'Dew point', label: 'Dew pt', color: C.s1, values: dew, fmt: v => `${Math.round(v)}°F` },
+      { name: 'Temperature', label: 'Temp', color: C.s2, values: temp.map(tU), fmt: v => `${Math.round(v)}${tUnit}` },
+      { name: 'Dew point', label: 'Dew pt', color: C.s1, values: dew.map(tU), fmt: v => `${Math.round(v)}${tUnit}` },
     ], { extremes: false, minSpan: 15, extra: i => `<div class="muted" style="margin-top:3px">${esc(per[i].shortForecast)}</div>` });
     chart($('#chRain'), hours, [{ name: 'Chance of rain', color: C.seq, values: pop, fmt: v => `${Math.round(v)}%` }],
       { kind: 'bar', fixed: [0, 100, 25], mr: 12, extra: i => `<div class="muted" style="margin-top:3px">${esc(per[i].shortForecast)}</div>` });
     $('#fcQpf').textContent = qpf >= 0.01 ? `Expected rain over 24 hours: about ${qpf.toFixed(2)} in.` : 'No measurable rain expected in the next 24 hours.';
     chart($('#chWind'), hours, [
-      { name: 'Gusts', color: C.s2, values: gust, fmt: v => `${Math.round(v)} mph`, dash: true },
-      { name: 'Wind', color: C.s1, values: wind, fmt: v => `${Math.round(v)} mph` },
+      { name: 'Gusts', color: C.s2, values: gust.map(sU), fmt: v => `${Math.round(v)} ${sUnit}`, dash: true },
+      { name: 'Wind', color: C.s1, values: wind.map(sU), fmt: v => `${Math.round(v)} ${sUnit}` },
     ], { minSpan: 15, arrows: wdir, extra: i => `<div class="muted" style="margin-top:3px">from the ${per[i].windDirection}</div>` });
     chart($('#chRh'), hours, [{ name: 'Humidity', color: C.seq, values: rh, fmt: v => `${Math.round(v)}%` }], { fixed: [0, 100, 25], mr: 12, extremes: true });
     chart($('#chSky'), hours, [{ name: 'Cloud cover', color: C.seq, values: sky, fmt: v => `${Math.round(v)}%` }], { kind: 'bar', fixed: [0, 100, 25], mr: 12 });
     if (pres.some(Number.isFinite)) {
-      chart($('#chPres'), hours, [{ name: 'Sea-level pressure', color: C.seq, values: pres, fmt: v => `${v.toFixed(1)} mb` }], { minSpan: 6, mr: 12, extremes: true });
+      chart($('#chPres'), hours, [{ name: 'Sea-level pressure', color: C.seq, values: pres, fmt: v => `${v.toFixed(1)} ${isM ? 'hPa' : 'mb'}` }], { minSpan: 6, mr: 12, extremes: true });
       const f = pres.filter(Number.isFinite), ch = f[f.length - 1] - f[0];
       $('#chPres').insertAdjacentHTML('beforeend', `<div class="fc-note">${Math.abs(ch) < 1 ? 'Steady' : ch > 0 ? 'Rising' : 'Falling'} pressure (${ch > 0 ? '+' : ''}${ch.toFixed(1)} mb over 24 h)${ch <= -3 ? ' — falling pressure often means unsettled weather.' : ch >= 3 ? ' — rising pressure usually means improving weather.' : '.'}</div>`);
     } else $('#chPres').innerHTML = '<div class="fc-note">Pressure forecast unavailable right now.</div>';
@@ -211,8 +215,8 @@
     $('#fcText').innerHTML = d.text.periods.slice(0, 3).map(x => `<div><b>${emoji(x.shortForecast, x.isDaytime)} ${esc(x.name)}</b><p>${esc(x.detailedForecast)}</p></div>`).join('');
 
     $('#fcTable').innerHTML = `<table><thead><tr><th>Time</th><th>Temp °F</th><th>Dew pt °F</th><th>Humidity %</th><th>Rain %</th><th>Wind mph</th><th>Gust mph</th><th>Clouds %</th><th>Pressure mb</th><th>Forecast</th></tr></thead><tbody>` +
-      per.map((x, i) => `<tr><td>${fmt(hours[i], { weekday: 'short', hour: 'numeric' })}</td><td>${temp[i]}</td><td>${dew[i] ?? ''}</td><td>${rh[i] ?? ''}</td><td>${pop[i]}</td>` +
-        `<td>${x.windDirection} ${wind[i] ?? ''}</td><td>${gust[i] ?? ''}</td><td>${sky[i] ?? ''}</td><td>${pres[i] != null ? pres[i].toFixed(1) : ''}</td><td>${esc(x.shortForecast)}</td></tr>`).join('') + '</tbody></table>';
+      per.map((x, i) => `<tr><td>${fmt(hours[i], { weekday: 'short', hour: 'numeric' })}</td><td>${tU(temp[i])}</td><td>${tU(dew[i]) ?? ''}</td><td>${rh[i] ?? ''}</td><td>${pop[i]}</td>` +
+        `<td>${x.windDirection} ${sU(wind[i]) ?? ''}</td><td>${sU(gust[i]) ?? ''}</td><td>${sky[i] ?? ''}</td><td>${pres[i] != null ? pres[i].toFixed(1) : ''}</td><td>${esc(x.shortForecast)}</td></tr>`).join('') + '</tbody></table>';
   }
 
   async function refresh() {
@@ -224,6 +228,7 @@
     } finally { $('#fcRefresh').disabled = false; }
   }
   $('#fcRefresh').addEventListener('click', refresh);
+  addEventListener('wb-units', () => last && render(last));   // units switch (addons/units.js)
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => last && render(last), 200); });
   refresh();
   setInterval(refresh, 30 * 60 * 1000);
