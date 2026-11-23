@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>WeatherBoy Admin</title>
+<meta name="theme-color" content="#0d1117">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" type="image/png" href="addons/icons/icon-192.png">
+<link rel="apple-touch-icon" href="addons/icons/icon-180.png">
+<link rel="stylesheet" href="addons/admin.css">
+</head>
+<body>
+<main id="admin">
+  <header class="ad-head">
+    <div class="ad-brand"><img src="addons/icons/icon-192.png" alt="" width="40" height="40"><div><h1>WeatherBoy Admin</h1>
+      <p>Change the live site's layout, widgets, banner and background. Changes go live about a minute after you publish.</p></div></div>
+    <nav class="ad-nav"><a href="home.html" target="_blank" rel="noopener">Open site &#x2197;</a></nav>
+  </header>
+
+  <!-- sign in -->
+  <section class="ad-card" id="adAuth">
+    <h2>&#x1F511; Sign in</h2>
+    <div id="adSignedOut">
+      <p class="ad-note">Paste your GitHub access key for <b>paups31/tampa-radar</b>. It stays on this device only and is sent only to GitHub.
+        You can preview changes without signing in; publishing needs the key.</p>
+      <form id="adLogin" class="ad-row" autocomplete="off">
+        <input id="adToken" type="password" placeholder="github_pat_…" spellcheck="false" autocapitalize="off" aria-label="GitHub access key">
+        <button type="submit" class="ad-btn primary">Sign in</button>
+      </form>
+      <label class="ad-check"><input type="checkbox" id="adRemember" checked> Remember on this device</label>
+      <details class="ad-help"><summary>How do I get a key?</summary>
+        <ol>
+          <li>On a computer, sign in to <b>github.com</b> as <b>paups31</b>.</li>
+          <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Settings &rarr; Developer settings &rarr; Fine-grained tokens &rarr; Generate new token</a>.</li>
+          <li>Name it <b>WeatherBoy admin</b> and choose an expiration (for example 90 days).</li>
+          <li>Under <b>Repository access</b> choose <b>Only select repositories</b> &rarr; <b>tampa-radar</b>.</li>
+          <li>Under <b>Permissions &rarr; Repository permissions</b>, set <b>Contents</b> to <b>Read and write</b>. Leave everything else as is.</li>
+          <li>Click <b>Generate token</b>, copy it, and paste it above. Treat it like a password: don't share it.</li>
+        </ol>
+        <p>Lost or worried about a key? Delete it on that same GitHub page and make a new one.</p>
+      </details>
+    </div>
+    <div id="adSignedIn" hidden>
+      <p class="ad-ok">Signed in as <b id="adUser"></b> with permission to publish.</p>
+      <button type="button" class="ad-btn" id="adLogout">Sign out on this device</button>
+    </div>
+    <p class="ad-msg" id="adAuthMsg" role="status"></p>
+  </section>
+
+  <form id="adForm" autocomplete="off">
+    <!-- announcement -->
+    <section class="ad-card">
+      <h2>&#x1F4E2; Announcement banner</h2>
+      <p class="ad-note">A message shown at the top of every page (home, radar, forecast, guides). Visitors can close it.</p>
+      <label class="ad-check"><input type="checkbox" name="annOn"> Show the banner</label>
+      <label class="ad-field">Message <textarea name="annText" maxlength="300" rows="2" placeholder="Hurricane season starts June 1: read our safety guide."></textarea></label>
+      <div class="ad-grid2">
+        <label class="ad-field">Link (optional) <input name="annLink" placeholder="learn.html#hurricanes"></label>
+        <label class="ad-field">Link text <input name="annLinkText" maxlength="40" placeholder="Read more"></label>
+      </div>
+      <label class="ad-field">Style <select name="annLevel"><option value="info">Blue: information</option><option value="warn">Amber: heads-up</option><option value="danger">Red: urgent</option></select></label>
+    </section>
+
+    <!-- home layout -->
+    <section class="ad-card">
+      <h2>&#x1F3E0; Home page layout</h2>
+      <p class="ad-note">The current-weather panel always stays on top. Reorder, hide or rename the sections below it.</p>
+      <ol id="adSections" class="ad-sections"></ol>
+      <h3>Header</h3>
+      <label class="ad-check"><input type="checkbox" name="greeting"> Show the time-of-day greeting</label>
+      <label class="ad-check"><input type="checkbox" name="loopButton"> Show the Storm loop button</label>
+    </section>
+
+    <!-- tiles -->
+    <section class="ad-card">
+      <h2>&#x1F9E9; Home page widgets</h2>
+      <p class="ad-note">Untick a widget to hide it from the home page.</p>
+      <div id="adTiles" class="ad-tiles"></div>
+    </section>
+
+    <!-- look -->
+    <section class="ad-card">
+      <h2>&#x1F3A8; Accent color</h2>
+      <p class="ad-note">Color of the main buttons and links across the site.</p>
+      <div class="ad-row"><input type="color" name="accent" value="#1f6feb" aria-label="Accent color">
+        <label class="ad-check"><input type="checkbox" name="accentDefault"> Use the standard blue</label></div>
+    </section>
+
+    <!-- background -->
+    <section class="ad-card">
+      <h2>&#x1F5BC;&#xFE0F; Background photo</h2>
+      <div class="ad-radios" role="radiogroup" aria-label="Background">
+        <label><input type="radio" name="bgMode" value="daily"> New photo every day (standard)</label>
+        <label><input type="radio" name="bgMode" value="pinned"> Always use one photo from the list</label>
+        <label><input type="radio" name="bgMode" value="custom"> My own photo</label>
+        <label><input type="radio" name="bgMode" value="off"> No background photo</label>
+      </div>
+      <div id="adPinned" class="ad-sub" hidden>
+        <p class="ad-note">Tap a photo. All are free-licensed Wikimedia Commons featured pictures; credits are added automatically.</p>
+        <div id="adPhotos" class="ad-photos"></div>
+      </div>
+      <div id="adCustom" class="ad-sub" hidden>
+        <p class="ad-note">Use only photos you took yourself or that have a free license (for example CC BY, CC BY-SA or CC0), and credit them as the license asks.</p>
+        <label class="ad-field">Photo address (must start with https://) <input name="cUrl" placeholder="https://upload.wikimedia.org/…jpg"></label>
+        <div class="ad-grid2">
+          <label class="ad-field">Title <input name="cTitle" maxlength="120"></label>
+          <label class="ad-field">Photographer / author <input name="cAuthor" maxlength="120"></label>
+          <label class="ad-field">License (e.g. CC BY-SA 4.0, or "Own photo") <input name="cLicense" maxlength="60"></label>
+          <label class="ad-field">License link (optional) <input name="cLicenseUrl"></label>
+        </div>
+        <label class="ad-field">Photo's page / source (optional) <input name="cPage"></label>
+        <label class="ad-check"><input type="checkbox" name="cConfirm"> I confirm this photo is free for me to use and the credit is correct</label>
+      </div>
+      <label class="ad-field">Darkness over the photo: <b id="adDimVal">50</b>
+        <input type="range" name="dim" min="0" max="100" step="5" value="50"></label>
+      <p class="ad-note">50 is the standard look. Lower shows more of the photo; higher makes text easier to read.</p>
+    </section>
+
+    <!-- actions -->
+    <div class="ad-actions" id="adActions">
+      <span class="ad-dirty" id="adDirty">No unsaved changes</span>
+      <button type="button" class="ad-btn" id="adPreview">Preview on this device</button>
+      <button type="button" class="ad-btn primary" id="adPublish">Publish changes</button>
+    </div>
+    <p class="ad-msg" id="adMsg" role="status"></p>
+  </form>
+
+  <!-- history -->
+  <section class="ad-card">
+    <h2>&#x1F558; History and undo</h2>
+    <p class="ad-note">Every publish is saved. Restore any earlier version; restoring is itself saved, so it can be undone too.</p>
+    <div id="adHistory" class="ad-history"><p class="ad-note">Sign in to see the history.</p></div>
+    <button type="button" class="ad-btn" id="adReset">Reset everything to the standard site</button>
+  </section>
+
+  <!-- advanced -->
+  <section class="ad-card">
+    <h2>&#x1F9D1;&#x200D;&#x1F4BB; Code (advanced)</h2>
+    <p class="ad-note">Code changes are made in GitHub's own editor, which keeps full history of every edit.
+      Best on a computer. A mistake in code can break the site, so preview locally or ask Claude when in doubt.</p>
+    <div class="ad-row wrap">
+      <a class="ad-btn" href="https://github.dev/paups31/tampa-radar" target="_blank" rel="noopener">Edit code in GitHub &#x2197;</a>
+      <a class="ad-btn" href="https://github.com/paups31/tampa-radar/commits/main" target="_blank" rel="noopener">All site changes &#x2197;</a>
+      <a class="ad-btn" href="https://github.com/paups31/tampa-radar/actions" target="_blank" rel="noopener">Publishing status &#x2197;</a>
+    </div>
+  </section>
+</main>
+<script src="addons/bg-photos.js"></script>
+<script src="addons/admin.js"></script>
+</body>
+</html>
