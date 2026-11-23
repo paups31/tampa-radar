@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Be Safe and Educated · WeatherBoy</title>
+<meta name="description" content="Plain-language weather guides with official sources: watches vs warnings, radar colors, CAPE, wind shear, lightning, hurricanes, floods and more.">
+<meta name="theme-color" content="#0d1117">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WeatherBoy">
+<link rel="apple-touch-icon" href="addons/icons/icon-180.png">
+<link rel="icon" type="image/png" href="addons/icons/icon-192.png">
+<link rel="manifest" href="addons/manifest.webmanifest">
+<link rel="stylesheet" href="addons/learn.css">
+<link rel="stylesheet" href="addons/daily-bg.css">
+</head>
+<body>
+<main id="learn">
+  <header class="ln-head">
+    <nav class="ln-nav" aria-label="WeatherBoy">
+      <a href="home.html">&#x2302; Home</a>
+      <a href="index.html">&#x1F4E1; Radar</a>
+      <a href="forecast.html">&#x1F4C5; Forecast</a>
+    </nav>
+    <h1><span aria-hidden="true">&#x1F6DF;</span> Be safe and educated</h1>
+    <p class="ln-intro">Short, plain-language guides to the weather you see in WeatherBoy: what alerts mean, how to read the radar,
+      and what numbers like CAPE and wind shear tell you. Every guide links to the official sources it is based on.</p>
+    <div class="ln-urgent" role="note"><b>In danger right now?</b> Follow National Weather Service warnings and local officials.
+      For an emergency, call <a href="tel:911">911</a>.</div>
+  </header>
+
+  <div class="ln-tools">
+    <label class="ln-search"><span class="sr">Search the guides</span>
+      <input id="lnSearch" type="search" placeholder="Search: watch, CAPE, lightning, rip current…" autocomplete="off"></label>
+    <div class="ln-cats" id="lnCats" role="group" aria-label="Topics"></div>
+  </div>
+
+  <div id="lnList" class="ln-list" aria-live="polite"></div>
+  <p id="lnNone" class="ln-none" hidden>No guide matches that search yet.</p>
+
+  <footer class="ln-foot">
+    These guides are for general education and summarise public information from NOAA's National Weather Service (NWS),
+    National Hurricane Center (NHC), National Severe Storms Laboratory (NSSL), Storm Prediction Center (SPC), National Ocean Service,
+    the U.S. EPA and AirNow. Follow the linked sources for full details. WeatherBoy is not an official warning service.
+  </footer>
+</main>
+<script src="addons/learn.js"></script>
+<script src="addons/bg-photos.js"></script>
+<script src="addons/daily-bg.js"></script>
+<script src="addons/units.js"></script>
+</body>
+</html>

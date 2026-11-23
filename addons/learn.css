@@ -1,0 +1,60 @@
+/* "Be safe and educated" page (learn.html) */
+:root { --bg:#0d1117; --card:rgba(22,27,34,.84); --card2:#1c2128; --line:#30363d; --text:#e6edf3; --text2:#c3ccd5; --muted:#8b949e; --accent:#58a6ff; }
+* { box-sizing:border-box; }
+html, body { margin:0; background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; }
+a { color:var(--accent); }
+.sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+#learn { max-width:860px; margin:0 auto; padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) calc(28px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
+
+.ln-nav { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+.ln-nav a { background:rgba(28,33,40,.9); border:1px solid var(--line); border-radius:10px; padding:8px 12px; min-height:40px; display:inline-flex; align-items:center;
+  color:var(--text); text-decoration:none; font-size:14px; font-weight:600; }
+.ln-nav a:hover { border-color:var(--accent); }
+.ln-head h1 { margin:0 0 6px; font-size:30px; letter-spacing:-.01em; text-shadow:0 1px 4px rgba(0,0,0,.8); }
+.ln-intro { margin:0 0 12px; color:#dde3ea; text-shadow:0 1px 3px rgba(0,0,0,.8); }
+.ln-urgent { background:rgba(61,29,32,.9); border:1px solid #a33a3f; border-radius:12px; padding:10px 14px; font-size:14px; margin-bottom:14px; }
+.ln-urgent a { color:#ffb3b8; font-weight:700; }
+
+.ln-tools { position:sticky; top:0; z-index:5; padding:8px 0 10px; margin:0 -4px 6px; padding-left:4px; padding-right:4px;
+  background:linear-gradient(180deg, rgba(13,17,23,.95) 70%, rgba(13,17,23,0)); }
+.ln-search input { width:100%; min-height:46px; border-radius:12px; border:1px solid var(--line); background:rgba(28,33,40,.95); color:var(--text);
+  font:inherit; padding:0 14px; }
+.ln-search input:focus { outline:2px solid var(--accent); outline-offset:1px; }
+.ln-cats { display:flex; gap:6px; overflow-x:auto; margin-top:8px; scrollbar-width:none; }
+.ln-cats::-webkit-scrollbar { display:none; }
+.ln-cats button { flex:none; min-height:38px; padding:0 12px; border-radius:19px; border:1px solid var(--line); background:rgba(28,33,40,.92); color:var(--text);
+  font:inherit; font-size:14px; cursor:pointer; }
+.ln-cats button.on { background:#1f6feb; border-color:#1f6feb; color:#fff; font-weight:700; }
+
+.ln-group h2 { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#c9d1d9; margin:18px 2px 8px; text-shadow:0 1px 3px rgba(0,0,0,.8); }
+.ln-card { background:var(--card); border:1px solid var(--line); border-radius:14px; margin-bottom:8px; -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  scroll-margin-top:120px; }
+.ln-card[open] { border-color:#3d6fb6; }
+.ln-card summary { list-style:none; display:flex; align-items:center; gap:12px; padding:12px 14px; cursor:pointer; min-height:56px; }
+.ln-card summary::-webkit-details-marker { display:none; }
+.ln-ico { font-size:26px; width:34px; text-align:center; flex:none; }
+.ln-sumtext { flex:1; min-width:0; display:flex; flex-direction:column; }
+.ln-sumtext b { font-size:16px; }
+.ln-sumtext span { color:var(--text2); font-size:14px; }
+.ln-chev { flex:none; color:var(--muted); font-size:24px; transition:transform .15s; }
+.ln-card[open] .ln-chev { transform:rotate(90deg); }
+.ln-body { padding:0 16px 14px 60px; color:#dfe5ec; }
+.ln-body p { margin:0 0 10px; }
+.ln-body ul { margin:0 0 10px; padding-left:20px; }
+.ln-body li { margin-bottom:5px; }
+.ln-body .tip { background:rgba(31,111,235,.14); border-left:3px solid var(--accent); padding:8px 12px; border-radius:0 8px 8px 0; font-size:14px; }
+.ln-body .do { background:rgba(63,185,80,.12); border-left:3px solid #3fb950; padding:8px 12px; border-radius:0 8px 8px 0; font-size:15px; }
+.ln-src { border-top:1px solid var(--line); margin-top:12px; padding-top:8px; font-size:13px; color:var(--text2); }
+.ln-src h3 { margin:0 0 4px; font-size:12px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); }
+.ln-src ol { margin:0; padding-left:20px; }
+.ln-host { color:var(--muted); }
+.ln-cardfoot { margin-top:8px; font-size:13px; }
+.ln-none { text-align:center; color:var(--text2); padding:24px 0; }
+.ln-foot { margin-top:20px; font-size:12px; color:#a9b4bf; text-shadow:0 1px 3px rgba(0,0,0,.8); }
+body > .wb-bg-credit { max-width:860px; margin:0 auto; padding:0 16px calc(20px + env(safe-area-inset-bottom)); }
+
+@media (max-width:560px) {
+  .ln-head h1 { font-size:25px; }
+  .ln-body { padding:0 14px 14px 14px; }
+  .ln-card summary { padding:12px; }
+}
